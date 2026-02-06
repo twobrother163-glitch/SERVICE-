@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Service Portfolio | Interactive 8D Interface</title>
+    
+    <meta property="og:title" content="Future-Tech Service Portfolio">
+    <meta property="og:description" content="Explore our 60 professional services including Web Development, AI, and Consulting via our Liquid Crystal Interface.">
+    <meta property="og:image" content="https://picsum.photos/1200/630?grayscale">
+    <meta property="og:url" content="https://yourname.github.io/my-services">
+    <meta property="og:type" content="website">
+
+    <style>
+        :root {
+            /* This base hue rotates automatically */
+            --base-hue: #00f3ff; 
+            --liquid-bg: #0a1015;
+            --melt-speed: 1s;
+            --build-speed: 1.5s;
+        }
+
+        body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', monospace; }
+
+        /* --- STAGE & COLOR CYCLE --- */
+        #lab-stage {
+            position: relative;
+            width: 100vw; height: 100vh;
+            background: radial-gradient(circle at center, #1a2a6c 0%, #000000 100%); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: colorCycle 20s infinite linear;
+        }
+
+        @keyframes colorCycle {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* GRID FLOOR */
+        .lab-floor {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 40%;
+            background: 
+                linear-gradient(transparent 95%, rgba(0, 243, 255, 0.2) 96%, transparent 97%),
+                linear-gradient(90deg, transparent 95%, rgba(0, 243, 255, 0.2) 96%, transparent 97%);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg);
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* --- ASSEMBLER UNIT --- */
+        #assembler {
+            position: relative;
+            width: 90%; max-width: 400px; height: 550px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(0,0,0,0.5);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            overflow: hidden;
+            /* The Liquid/Gooey Effect */
+            filter: contrast(10); 
+            background-color: black;
+        }
+
+        #liquid-content {
+            position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--liquid-bg);
+            display: flex; flex-direction: column;
+            overflow: hidden;
+            filter: blur(0px);
+            transform-origin: bottom;
+        }
+
+        /* ANIMATIONS */
+        .state-building { animation: buildUp var(--build-speed) cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+        @keyframes buildUp {
+            0% { height: 0%; filter: blur(10px); opacity: 0; }
+            100% { height: 100%; filter: blur(0px); opacity: 1; }
+        }
+
+        .state-melting { animation: meltDown var(--melt-speed) forwards; }
+        @keyframes meltDown {
+            0% { filter: blur(0px); transform: translateY(0); }
+            50% { filter: blur(10px); transform: translateY(20px) scaleX(0.9); }
+            100% { filter: blur(20px); transform: translateY(120%); opacity: 0; }
+        }
+
+        /* CONTENT STYLING */
+        .card-img-holder {
+            width: 100%; height: 250px;
+            position: relative; overflow: hidden;
+        }
+        
+        .card-img {
+            width: 100%; height: 100%; object-fit: cover;
+            mix-blend-mode: luminosity; opacity: 0.8;
+        }
+
+        .scanner-bar {
+            position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--base-hue); box-shadow: 0 0 20px var(--base-hue);
+            animation: scan 2s infinite;
+        }
+        @keyframes scan { 0% {top:0;} 100% {top:100%;} }
+
+        .info-box {
+            padding: 25px; color: #fff; flex-grow: 1;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        .svc-id {
+            color: var(--base-hue); font-size: 0.8rem;
+            margin-bottom: 5px; display: block; font-weight: bold;
+        }
+
+        .svc-name {
+            font-size: 1.5rem; line-height: 1.2; margin: 0 0 10px 0;
+            text-transform: uppercase; font-weight: bold;
+            border-left: 4px solid var(--base-hue); padding-left: 10px;
+        }
+
+        .svc-desc {
+            font-size: 0.9rem; color: #aaa; min-height: 60px;
+            border-right: 2px solid transparent;
+        }
+        .typing {
+            border-right: 2px solid var(--base-hue);
+            animation: blinkCursor 0.5s step-end infinite;
+        }
+        @keyframes blinkCursor { 50% { border-color: transparent; } }
+
+        .wa-btn {
+            margin-top: 15px; padding: 12px;
+            background: transparent; border: 1px solid var(--base-hue);
+            color: var(--base-hue); text-align: center; text-decoration: none;
+            font-weight: bold; text-transform: uppercase; transition: 0.3s; cursor: pointer;
+        }
+        .wa-btn:hover {
+            background: var(--base-hue); color: #000;
+            box-shadow: 0 0 20px var(--base-hue);
+        }
+
+        #progress-track {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 6px;
+            background: #222; z-index: 100;
+        }
+        #progress-fill {
+            height: 100%; width: 0%;
+            background: var(--base-hue);
+            box-shadow: 0 0 15px var(--base-hue);
+            transition: width linear;
+        }
+        
+        #status-log {
+            position: absolute; top: 20px; right: 20px;
+            text-align: right; color: rgba(255,255,255,0.4); font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="lab-stage">
+    <div class="lab-floor"></div>
+    
+    <div id="status-log">
+        UNIT: LIQUID-CRYSTAL<br>
+        SYSTEM: ONLINE
+    </div>
+
+    <div id="assembler">
+        <div id="liquid-content"></div>
+        <div id="progress-track"><div id="progress-fill"></div></div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // --- DATA: ALL 60 SERVICES ---
+        const services = [
+            { id: 1, name: "Business Consultation", desc: "Expert guidance to solve complex challenges." },
+            { id: 2, name: "Strategic Planning", desc: "Long-term roadmaps for sustainable growth." },
+            { id: 3, name: "Market Research", desc: "Data-driven insights on competitors." },
+            { id: 4, name: "Brand Development", desc: "Crafting identity and market position." },
+            { id: 5, name: "Logo Design", desc: "Visual identity that speaks volumes." },
+            { id: 6, name: "Graphic Design", desc: "Print and digital assets for your brand." },
+            { id: 7, name: "Website Design", desc: "Responsive, modern, user-centric layouts." },
+            { id: 8, name: "Website Development", desc: "Clean code using React, Vue, or HTML5." },
+            { id: 9, name: "Mobile App Dev", desc: "iOS and Android native applications." },
+            { id: 10, name: "Software Dev", desc: "Custom tools for business automation." },
+            { id: 11, name: "E-commerce", desc: "Shopify & Woo stores that convert sales." },
+            { id: 12, name: "UI/UX Design", desc: "Optimizing user flow and engagement." },
+            { id: 13, name: "Content Writing", desc: "SEO-friendly blogs and copy." },
+            { id: 14, name: "Copywriting", desc: "Sales-focused text that persuades." },
+            { id: 15, name: "SEO Services", desc: "Ranking you #1 on Google Search." },
+            { id: 16, name: "Social Media", desc: "Growing your community on all platforms." },
+            { id: 17, name: "Digital Marketing", desc: "Full-stack marketing campaigns." },
+            { id: 18, name: "Email Marketing", desc: "Newsletters that retain customers." },
+            { id: 19, name: "PPC Advertising", desc: "Google Ads for instant traffic." },
+            { id: 20, name: "Lead Generation", desc: "Pipelines to bring in new clients." },
+            { id: 21, name: "CRM Solutions", desc: "Setup and management of CRM systems." },
+            { id: 22, name: "Data Analysis", desc: "Turning raw data into decisions." },
+            { id: 23, name: "Cloud Solutions", desc: "AWS/Azure management and hosting." },
+            { id: 24, name: "Cybersecurity", desc: "Protecting your digital assets." },
+            { id: 25, name: "IT Support", desc: "24/7 technical assistance." },
+            { id: 26, name: "System Integration", desc: "Connecting APIs and software." },
+            { id: 27, name: "Automation", desc: "Zapier and script automation." },
+            { id: 28, name: "Project Mgmt", desc: "Agile management for your teams." },
+            { id: 29, name: "Quality Assurance", desc: "Rigorous software testing." },
+            { id: 30, name: "Maintenance", desc: "Keeping your systems updated." },
+            { id: 31, name: "Technical Training", desc: "Teaching your team new tools." },
+            { id: 32, name: "Business Training", desc: "Workshops for business growth." },
+            { id: 33, name: "Customer Support", desc: "Outsourced support teams." },
+            { id: 34, name: "Call Center", desc: "Professional phone handling." },
+            { id: 35, name: "Virtual Assistance", desc: "Remote admin support." },
+            { id: 36, name: "Documentation", desc: "Technical manuals and guides." },
+            { id: 37, name: "Legal Docs", desc: "Contract and compliance drafting." },
+            { id: 38, name: "Accounting", desc: "Financial tracking and ledgers." },
+            { id: 39, name: "Tax Consultancy", desc: "Optimizing your tax strategy." },
+            { id: 40, name: "Financial Advisory", desc: "Investment and savings advice." },
+            { id: 41, name: "HR Services", desc: "Employee management solutions." },
+            { id: 42, name: "Recruitment", desc: "Finding the best talent for you." },
+            { id: 43, name: "Payroll Mgmt", desc: "Automated salary processing." },
+            { id: 44, name: "Compliance", desc: "Adhering to industry regulations." },
+            { id: 45, name: "Risk Mgmt", desc: "Minimizing operational threats." },
+            { id: 46, name: "Operations Mgmt", desc: "Streamlining daily workflows." },
+            { id: 47, name: "Supply Chain", desc: "Logistics optimization." },
+            { id: 48, name: "Inventory Mgmt", desc: "Stock control systems." },
+            { id: 49, name: "Procurement", desc: "Sourcing best materials." },
+            { id: 50, name: "Logistics", desc: "Shipping and transport." },
+            { id: 51, name: "Facility Mgmt", desc: "Office and building care." },
+            { id: 52, name: "Maintenance Ops", desc: "Equipment repair services." },
+            { id: 53, name: "Event Mgmt", desc: "Corporate event planning." },
+            { id: 54, name: "Public Relations", desc: "Managing your public image." },
+            { id: 55, name: "Media Production", desc: "High-end video and photo." },
+            { id: 56, name: "Advertising", desc: "Billboards and TV ads." },
+            { id: 57, name: "Printing", desc: "Business cards and brochures." },
+            { id: 58, name: "Packaging", desc: "Product box design." },
+            { id: 59, name: "Product Dev", desc: "Prototyping and manufacturing." },
+            { id: 60, name: "Expansion", desc: "Global market entry strategy." }
+        ];
+
+        const container = document.getElementById('liquid-content');
+        const progressBar = document.getElementById('progress-fill');
+        const statusLog = document.getElementById('status-log');
+        let currentIndex = 0;
+        
+        // TIMING (ms)
+        const displayTime = 4000;
+        const meltTime = 1000;
+        
+        function typeWriter(element, text, speed) {
+            let i = 0;
+            element.innerHTML = "";
+            element.classList.add("typing");
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    element.classList.remove("typing");
+                }
+            }
+            type();
+        }
+
+        function renderCard(index) {
+            const service = services[index];
+            const imgUrl = `https://picsum.photos/seed/${service.id}fluid/350/250`;
+            const waLink = `https://wa.me/48510820441?text=Inquiry about ${encodeURIComponent(service.name)}`;
+
+            container.className = '';
+            void container.offsetWidth; // Force Reflow
+            
+            container.innerHTML = `
+                <div class="card-img-holder">
+                    <img src="${imgUrl}" class="card-img">
+                    <div class="scanner-bar"></div>
+                </div>
+                <div class="info-box">
+                    <div>
+                        <span class="svc-id">SEQUENCE #${String(service.id).padStart(2,'0')}</span>
+                        <h2 class="svc-name">${service.name}</h2>
+                        <p class="svc-desc" id="desc-box"></p>
+                    </div>
+                    <a href="${waLink}" target="_blank" class="wa-btn">WhatsApp Inquiry</a>
+                </div>
+            `;
+
+            container.classList.add('state-building');
+            statusLog.innerHTML = `UNIT: ASSEMBLER-01<br>STATUS: BUILDING ${service.name}...`;
+
+            const descBox = document.getElementById('desc-box');
+            setTimeout(() => { typeWriter(descBox, service.desc, 30); }, 500);
+
+            progressBar.style.transition = 'none';
+            progressBar.style.width = '0%';
+            setTimeout(() => {
+                progressBar.style.transition = `width ${displayTime}ms linear`;
+                progressBar.style.width = '100%';
+            }, 100);
+
+            setTimeout(() => {
+                container.classList.remove('state-building');
+                container.classList.add('state-melting');
+                statusLog.innerHTML = `UNIT: ASSEMBLER-01<br>STATUS: LIQUEFYING DATA...`;
+            }, displayTime);
+
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % services.length;
+                renderCard(currentIndex);
+            }, displayTime + meltTime);
+        }
+
+        renderCard(0);
+    })();
+</script>
+
+</body>
+</html>
